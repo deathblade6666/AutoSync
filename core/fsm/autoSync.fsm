@@ -1,0 +1,95 @@
+/*%FSM<COMPILE "E:\Steam\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, AutoSync FSM">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Variables_init",0,250,-186.924393,-218.647018,-96.924393,-168.646927,0.000000,"Variables init"};
+item1[] = {"True",8,218,-93.253677,-128.412094,-3.253677,-78.411957,0.000000,"True"};
+item2[] = {"Logging",2,250,-186.747726,-24.032806,-96.747726,25.967194,0.000000,"Logging"};
+item3[] = {"Time_to_save__",4,4314,-300.255249,-99.989288,-210.255066,-49.989288,0.000000,"Time to save ?"};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {3,2};
+globals[] = {0.000000,0,0,0,0,640,480,3,15,6316128,1,-368.429016,104.075127,111.599243,-264.772766,811,646,1};
+window[] = {0,-1,-1,-32000,-32000,981,137,1700,163,1,829};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "AutoSync FSM";
+        class States
+        {
+                /*%FSM<STATE "Variables_init">*/
+                class Variables_init
+                {
+                        name = "Variables_init";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"private [""_nexttick"",""_randtime"",""_basetime"",""_firstsave""];" \n
+                         "_nexttick = 0;" \n
+                         "_firstsave = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""first_autoSync_delay""));" \n
+                         "_randtime = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""random_time""));" \n
+                         "_basetime = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""base_time""));" \n
+                         "" \n
+                         "_nexttick = time + _firstsave;" \n
+                         "diag_log ""AUTOSYNC : AutoSync FSM started !"";" \n
+                         "if (isNil ""life_session_time"") then {" \n
+                         "	life_session_time = false;" \n
+                         "};	"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "True">*/
+                                class True
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="Logging";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"true"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Logging">*/
+                class Logging
+                {
+                        name = "Logging";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"diag_log format [ ""AUTOSYNC : Il est %1, prochain AutoSync a %2"",time,_nexttick];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Time_to_save__">*/
+                                class Time_to_save__
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="Logging";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time >= _nexttick" \n
+                                         ""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"if (!alive player) then {" \n
+                                         "	diag_log format [ ""AUTOSYNC : Il est %1, vous êtes mort, pas d'AutoSync !"",time];	" \n
+                                         "	} else {" \n
+                                         "if (!(life_session_time)) then {" \n
+                                         "		[] call SOCK_fnc_updateRequest;" \n
+                                         "		hint ""Sauvegarde de votre progression..."";" \n
+                                         "		diag_log format [ ""AUTOSYNC : Il est %1, Progression sauvegardee !"",time];" \n
+                                         "	} else {" \n
+                                         "		diag_log format [ ""AUTOSYNC : Il est %1, SyncData manuel fait il y a moins 5 minutes, abandon !"",time];" \n
+                                         "	};" \n
+                                         "};" \n
+                                         "" \n
+                                         "_nexttick = (time + (_basetime + (random(_randtime))));"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Variables_init";
+        finalStates[] =
+        {
+        };
+};
+/*%FSM</COMPILE>*/
