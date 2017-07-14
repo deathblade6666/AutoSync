@@ -4,10 +4,10 @@
 **Fonctionnement :**
 
 - La configuration se fait dans le config_Master, les options de configuration suivantes sont disponibles :  
->-- Activation/Désactivation du système  
->-- Configuration du délai avant première sync  
->-- Configuration de la valeur d’attente de base  
->-- Configuration de la valeur d’attente random  
+>1. Activation/Désactivation du système  
+>2. Configuration du délai avant première sync  
+>3. Configuration de la valeur d’attente de base  
+>4. Configuration de la valeur d’attente random  
 - Le délai avant le syncdata est aléatoire pour chaque joueur pour éviter
 plusieures requêtes simultanées. Ce délai est la somme d’une variable fixe et d’un random sur une valeur définie.  
 - Dans le cas où le joueur aurai déjà sync manuellement dans les 5 dernières minutes, l’autosync n’est pas executé.  
