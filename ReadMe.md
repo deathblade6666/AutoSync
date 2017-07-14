@@ -38,8 +38,8 @@ Rajoutez dans cette section :
     	first_autoSync_delay = 600; // Délai avant premier autoSync   
     	base_time = 600; // Temps minimum avant sync    
     	random_time = 300; // Valeur random ajoutée au délai de base avant sync    
-		has_icon = true; // Utilisation d'une icone ? OUI= true / NON=false 
-		icon_directory = "textures\saveicon.paa"; // Chemin absolu de l'icone (Format idéal 64x64)
+	has_icon = true; // Utilisation d'une icone ? OUI= true / NON=false 
+	icon_directory = "textures\saveicon.paa"; // Chemin absolu de l'icone (Format idéal 64x64)
 ```
 
 2. Dans **\core\init.sqf**
