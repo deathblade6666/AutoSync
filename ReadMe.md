@@ -25,20 +25,20 @@ plusieures requêtes simultanées. Ce délai est la somme d’une variable fixe 
 	Rajoutez dans cette section :
 
  ` /* AutoSync Settings */
-    	enable_autoSync = true; // Autosync activé ?
-    	first_autoSync_delay = 600; // Délai avant premier autoSync
-    	base_time = 600; // Temps minimum avant sync
-    	random_time = 300; // Valeur random ajoutée au délai de base avant sync`
+    	enable_autoSync = true; // Autosync activé ?  
+    	first_autoSync_delay = 600; // Délai avant premier autoSync  
+    	base_time = 600; // Temps minimum avant sync  
+    	random_time = 300; // Valeur random ajoutée au délai de base avant sync`  
 
 2. Dans **\core\init.sqf**
 	
 	Coller tout en bas juste avant les lignes “diag_log” :
 
-	`// Check si autoSync activé ?
+	`// Check si autoSync activé ?  
 if ((LIFE_SETTINGS(getNumber,"enable_autoSync") isEqualTo 1) && (LIFE_SETTINGS(getNumber,"base_time") >= 600 )) then {
-	[] execFSM "core\fsm\autoSync.fsm";
-	diag_log "Starting FSM-based autoSync...";
-} else {
-	diag_log "AUTOSYNC : AutoSync disabled dans la config ou valeur de base_time incorrecte (min 600), abandon...";
+	[] execFSM "core\fsm\autoSync.fsm";  
+	diag_log "Starting FSM-based autoSync...";  
+} else {  
+	diag_log "AUTOSYNC : AutoSync disabled dans la config ou valeur de base_time incorrecte (min 600), abandon...";  
 };`
 
