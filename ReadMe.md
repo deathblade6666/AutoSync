@@ -4,14 +4,22 @@
 **Fonctionnement :**
 
 - La configuration se fait dans le config_Master, les options de configuration suivantes sont disponibles :  
->1. Activation/Désactivation du système  
->2. Configuration du délai avant première sync  
->3. Configuration de la valeur d’attente de base  
->4. Configuration de la valeur d’attente random  
+1. Activation/Désactivation du système  
+2. Configuration du délai avant première sync  
+3. Configuration de la valeur d’attente de base  
+4. Configuration de la valeur d’attente random  
 - Le délai avant le syncdata est aléatoire pour chaque joueur pour éviter
 plusieures requêtes simultanées. Ce délai est la somme d’une variable fixe et d’un random sur une valeur définie.  
 - Dans le cas où le joueur aurai déjà sync manuellement dans les 5 dernières minutes, l’autosync n’est pas executé.  
 - L'état et les actions de l'autosync sont loggées dans le RPT.  
+
+**Choses à savoir :**  
+
+- Il est important de choisir une intervalle de base d’au moins 10 minutes idéalement.
+- L’autoSync est exécuté localement, et individuellement par chaque client.
+- Les actions sont toutes loggées dans le RPT client.
+- Si vous souhaitez ajouter une image au teste ou modifier la façon dont le client est averti il vous faut l’éditeur FSM (Fourni dans ArmaTools).    
+
 
 **Instructions d'installation :**
 
