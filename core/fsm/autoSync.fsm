@@ -9,8 +9,8 @@ link0[] = {0,1};
 link1[] = {1,2};
 link2[] = {2,3};
 link3[] = {3,2};
-globals[] = {0.000000,0,0,0,0,640,480,3,15,6316128,1,-368.429016,104.075127,111.599243,-264.772766,811,646,1};
-window[] = {0,-1,-1,-32000,-32000,981,137,1700,163,1,829};
+globals[] = {0.000000,0,0,0,0,640,480,3,15,6316128,1,-360.926819,111.577682,123.604637,-252.772125,945,646,1};
+window[] = {0,-1,-1,-1,-1,1034,238,2048,216,1,963};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -22,11 +22,18 @@ class FSM
                 {
                         name = "Variables_init";
                         itemno = 0;
-                        init = /*%FSM<STATEINIT""">*/"private [""_nexttick"",""_randtime"",""_basetime"",""_firstsave""];" \n
+                        init = /*%FSM<STATEINIT""">*/"private [""_nexttick"",""_randtime"",""_basetime"",""_firstsave"",""_hasimg"",""_img""];" \n
                          "_nexttick = 0;" \n
                          "_firstsave = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""first_autoSync_delay""));" \n
                          "_randtime = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""random_time""));" \n
                          "_basetime = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""base_time""));" \n
+                         "" \n
+                         "// Added for Image config" \n
+                         "_hasimg = (getNumber (missionConfigFile >> ""Life_Settings"" >> ""has_icon""));" \n
+                         "_img = (getText (missionConfigFile >> ""Life_Settings"" >> ""icon_directory""));" \n
+                         "" \n
+                         "// Debug line" \n
+                         "diag_log format [ ""La variable _img vaut : %1"",_img];" \n
                          "" \n
                          "_nexttick = time + _firstsave;" \n
                          "diag_log ""AUTOSYNC : AutoSync FSM started !"";" \n
@@ -73,14 +80,19 @@ class FSM
                                          "	} else {" \n
                                          "if (!(life_session_time)) then {" \n
                                          "		[] call SOCK_fnc_updateRequest;" \n
-                                         "		hint ""Sauvegarde de votre progression..."";" \n
+                                         "		if (_hasimg isEqualTo 1) then {" \n
+                                         "			hint composeText [ image _img, ""Sauvegarde de votre progression..."" ];" \n
+                                         "		} else {" \n
+                                         "			hint ""Sauvegarde de votre progression..."";" \n
+                                         "			};" \n
                                          "		diag_log format [ ""AUTOSYNC : Il est %1, Progression sauvegardee !"",time];" \n
                                          "	} else {" \n
                                          "		diag_log format [ ""AUTOSYNC : Il est %1, SyncData manuel fait il y a moins 5 minutes, abandon !"",time];" \n
                                          "	};" \n
                                          "};" \n
                                          "" \n
-                                         "_nexttick = (time + (_basetime + (random(_randtime))));"/*%FSM</ACTION""">*/;
+                                         "_nexttick = (time + (_basetime + (random(_randtime))));" \n
+                                         ""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
                         };

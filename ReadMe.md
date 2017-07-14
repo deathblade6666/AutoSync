@@ -12,13 +12,14 @@
 plusieures requêtes simultanées. Ce délai est la somme d’une variable fixe et d’un random sur une valeur définie.  
 - Dans le cas où le joueur aurai déjà sync manuellement dans les 5 dernières minutes, l’autosync n’est pas executé.  
 - L'état et les actions de l'autosync sont loggées dans le RPT.  
+- Possibilité d'utiliser une image à ajouter au hint de sauvegarde.  
 
 **Choses à savoir :**  
 
 - Il est important de choisir une intervalle de base d’au moins 10 minutes idéalement.
 - L’autoSync est exécuté localement, et individuellement par chaque client.
 - Les actions sont toutes loggées dans le RPT client.
-- Si vous souhaitez ajouter une image au teste ou modifier la façon dont le client est averti il vous faut l’éditeur FSM (Fourni dans ArmaTools).    
+- Si vous souhaitez modifier la façon dont le client est averti il vous faut l’éditeur FSM (Fourni dans ArmaTools).    
 
 
 **Instructions d'installation :**
@@ -37,6 +38,8 @@ Rajoutez dans cette section :
     	first_autoSync_delay = 600; // Délai avant premier autoSync   
     	base_time = 600; // Temps minimum avant sync    
     	random_time = 300; // Valeur random ajoutée au délai de base avant sync    
+		has_icon = true; // Utilisation d'une icone ? OUI= true / NON=false 
+		icon_directory = "textures\saveicon.paa"; // Chemin absolu de l'icone (Format idéal 64x64)
 ```
 
 2. Dans **\core\init.sqf**
